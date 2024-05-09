@@ -1,22 +1,29 @@
- 
- var xmlDoc = document.implementation.createDocument(null, 'cadastro_jogadores');
+var xmlString = ''; // Variável global para armazenar o XML
 
+// Função para criar o XML com base nos dados inseridos
+function cadastrar() {
+  var nome = document.getElementById('nome').value;
+  var numeroCamisa = document.getElementById('numeroCamisa').value;
 
- var jogador = xmlDoc.createElement('jogador');
- var nome = xmlDoc.createElement('nome');
- nome.textContent = 'João';
- var numeroCamisa = xmlDoc.createElement('numero_camisa');
- numeroCamisa.textContent = '10';
+  // Criar um novo documento XML
+  var xmlDoc = document.implementation.createDocument(null, 'cadastro_jogadores');
 
- 
- jogador.appendChild(nome);
- jogador.appendChild(numeroCamisa);
- xmlDoc.documentElement.appendChild(jogador);
+  // Criar elementos e atributos
+  var jogador = xmlDoc.createElement('jogador');
+  var nomeElemento = xmlDoc.createElement('nome');
+  nomeElemento.textContent = nome;
+  var numeroCamisaElemento = xmlDoc.createElement('numero_camisa');
+  numeroCamisaElemento.textContent = numeroCamisa;
 
- var xmlString = new XMLSerializer().serializeToString(xmlDoc);
+  // Adicionar elementos e atributos ao documento XML
+  jogador.appendChild(nomeElemento);
+  jogador.appendChild(numeroCamisaElemento);
+  xmlDoc.documentElement.appendChild(jogador);
 
+  // Converter o documento XML em uma string XML com quebras de linha entre os elementos
+  xmlString = new XMLSerializer().serializeToString(xmlDoc);
 
- var xmlContent = document.getElementById('xmlContent');
- var pre = document.createElement('pre');
- pre.textContent = xmlString;
- xmlContent.appendChild(pre);
+  // Exibir o conteúdo XML na tela
+  var xmlContent = document.getElementById('xmlContent');
+  xmlContent.textContent = xmlString;
+}
